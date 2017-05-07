@@ -53,7 +53,6 @@ namespace XamarinLab.Views
             {
                 _viewModel.IsCreating = false;
                 MessagingCenter.Send(this, "AddItem", _viewModel.Item);
-                _viewModel.SetTitle();
             }
         }
 

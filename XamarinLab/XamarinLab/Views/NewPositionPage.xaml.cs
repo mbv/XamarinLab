@@ -12,7 +12,6 @@ namespace XamarinLab.Views
 {
     public partial class NewPositionPage : PopupPage
     {
-
         public Position Position { get; set; }
 
         public NewPositionPage()

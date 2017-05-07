@@ -1,5 +1,6 @@
 ﻿using System;
 using Rg.Plugins.Popup.Extensions;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XamarinLab.ViewModels;
@@ -25,7 +26,7 @@ namespace XamarinLab.Views
             if (e.SelectedItem == null)
                 return;
 
-            await DisplayAlert("Selected", e.SelectedItem.ToString(), "OK");
+           // await DisplayAlert("Selected", e.SelectedItem.ToString(), "OK");
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;
@@ -41,7 +42,7 @@ namespace XamarinLab.Views
 
         async void AddPosition_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushPopupAsync(new NewPositionPage());
+            await PopupNavigation.PushAsync(new NewPositionPage());
         }
     
     }

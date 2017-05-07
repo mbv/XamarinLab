@@ -5,7 +5,7 @@
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              xmlns:infrastructure="clr-namespace:XamarinUniversity.Infrastructure;assembly=XamU.Infrastructure"
              x:Class="XamarinLab.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Item.Photo.Name}">
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="{Binding EditButtonName}" Clicked="EditButton_Clicked" />
     </ContentPage.ToolbarItems>

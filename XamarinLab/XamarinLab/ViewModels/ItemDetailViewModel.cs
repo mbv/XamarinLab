@@ -54,23 +54,18 @@ namespace XamarinLab.ViewModels
 
         public ItemDetailViewModel(bool creating = false, Item item = null)
         {
-            SetTitle();
+            
             PositionItems = new ObservableRangeCollection<Position>();
             LoadPositionsCommand = new Command(async () => await ExecuteLoadPositionsCommand());
             Item = item;
+
             IsCreating = creating;
             if (IsCreating)
             {
-                Item = new Item {Id = Guid.NewGuid().ToString() };
+                Item = new Item {Id = Guid.NewGuid().ToString(), PhotoId = "1", PositionId = "1"};
                 EditableItem = Item;
                 IsEditing = true;
             }
-        }
-
-
-        public void SetTitle()
-        {
-            Title = (IsCreating) ? "Create" : Item.Photo.Name;
         }
 
         async Task ExecuteLoadPositionsCommand()
