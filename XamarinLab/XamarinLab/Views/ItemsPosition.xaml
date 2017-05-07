@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XamarinLab.Views.ItemsPosition"
+             Title="{Binding Title}"
+             x:Name="BrowseItemsPosition">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Position" Clicked="AddPosition_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="ItemsPositionListView"
+                      ItemsSource="{Binding Positions}"
+                      VerticalOptions="FillAndExpand"
+                      ItemTapped="Handle_ItemTapped"
+                      ItemSelected="Handle_ItemSelected"
+                      HasUnevenRows="true"
+                      IsPullToRefreshEnabled="true"
+                      IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                      RefreshCommand="{Binding LoadItemsCommand}"
+                      RowHeight="30">
+                <x:Arguments>
+                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                </x:Arguments>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout VerticalOptions="CenterAndExpand" Padding="10">
+                                <Label Text="{Binding Name}"
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       VerticalOptions="Center" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

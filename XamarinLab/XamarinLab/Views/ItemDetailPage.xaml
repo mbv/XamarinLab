@@ -1,10 +1,51 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
+             xmlns:infrastructure="clr-namespace:XamarinUniversity.Infrastructure;assembly=XamU.Infrastructure"
              x:Class="XamarinLab.Views.ItemDetailPage"
              Title="{Binding Title}">
-	<StackLayout Spacing="20" Padding="15">
-		<Label Text="{Binding Item.Text}" FontSize="Medium"/>
-        <Label Text="{Binding Item.Description}" FontSize="Small"/>
-    </StackLayout>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{Binding EditButtonName}" Clicked="EditButton_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ScrollView>
+        <StackLayout Orientation="Vertical" Spacing="20" Padding="15">
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical">
+                    <abstractions:CircleImage
+                        BorderColor="LightGray"
+                        BorderThickness="1"
+                        HeightRequest="100"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="100"
+                        Source="{Binding Item.Photo.Url}"
+                        IsVisible="{Binding IsNotEditing}"/>
+                    <abstractions:CircleImage
+                        BorderColor="LightGray"
+                        BorderThickness="1"
+                        HeightRequest="100"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="100"
+                        Source="{Binding EditableItem.Photo.Url}"
+                        IsVisible="{Binding IsEditing}"/>
+                    <Button Text="Change Photo" Clicked="ChangePhotoButton_Clicked" IsVisible="{Binding IsEditing}" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Label Text="{Binding Item.Photo.Name}" FontSize="Medium" FontAttributes="Bold" IsVisible="{Binding IsNotEditing}" />
+                    <Label Text="{Binding EditableItem.Photo.Name}" FontSize="Medium" FontAttributes="Bold" IsVisible="{Binding IsEditing}" />
+                    <Label Text="{Binding Item.Position.Name}" FontSize="Medium" IsVisible="{Binding IsNotEditing}" />
+                    <Picker x:Name="PositionPicker" IsVisible="{Binding IsEditing}">
+                        <Picker.Behaviors>
+                            <infrastructure:PickerBindBehavior Items="{Binding PositionItems}"
+                                                               SelectedItem="{Binding EditableItem.Position}" />
+                        </Picker.Behaviors>
+                    </Picker>
+                </StackLayout>
+            </StackLayout>
+            <Label Text="{Binding Item.Description}" FontSize="Small" IsVisible="{Binding IsNotEditing}" />
+            <Editor Text="{Binding EditableItem.Description}" IsVisible="{Binding IsEditing}" />
+
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

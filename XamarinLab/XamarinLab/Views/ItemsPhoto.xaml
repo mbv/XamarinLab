@@ -1,24 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
-             x:Class="XamarinLab.Views.ItemsPage"
+             x:Class="XamarinLab.Views.ItemsPhoto"
              Title="{Binding Title}"
-             x:Name="BrowseItemsPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Item" Clicked="AddItem_Clicked" />
-    </ContentPage.ToolbarItems>
+             x:Name="BrowseItemsPosition">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="ItemsListView"
-                      ItemsSource="{Binding Items}"
+            <ListView x:Name="ItemsPositionListView"
+                      ItemsSource="{Binding Photos}"
                       VerticalOptions="FillAndExpand"
+                      ItemTapped="Handle_ItemTapped"
+                      ItemSelected="Handle_ItemSelected"
                       HasUnevenRows="true"
-                      RefreshCommand="{Binding LoadItemsCommand}"
                       IsPullToRefreshEnabled="true"
                       IsRefreshing="{Binding IsBusy, Mode=OneWay}"
-                      ItemSelected="OnItemSelected">
+                      RefreshCommand="{Binding LoadItemsCommand}"
+                      RowHeight="30">
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                 </x:Arguments>
@@ -32,19 +31,11 @@
                                     HeightRequest="66"
                                     VerticalOptions="CenterAndExpand"
                                     WidthRequest="66"
-                                    Source="{Binding Photo.Url}"/>
+                                    Source="{Binding Url}"/>
                                 <BoxView Color="Black" WidthRequest="1" HeightRequest="25" VerticalOptions="Center" />
-                                <StackLayout Padding="10">
-
-                                    <Label Text="{Binding Photo.Name}"
-                                           LineBreakMode="NoWrap"
-                                           Style="{DynamicResource ListItemTextStyle}"
-                                           FontSize="16" />
-                                    <Label Text="{Binding Position.Name}"
-                                           LineBreakMode="NoWrap"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="13" />
-                                </StackLayout>
+                                <Label Text="{Binding Name}"
+                                       Style="{DynamicResource ListItemTextStyle}"
+                                       VerticalOptions="Center" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

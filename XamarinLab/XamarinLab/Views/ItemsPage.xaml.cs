@@ -9,13 +9,13 @@ namespace XamarinLab.Views
 {
     public partial class ItemsPage : ContentPage
     {
-        ItemsViewModel viewModel;
+        private readonly ItemsPageViewModel _pageViewModel;
 
         public ItemsPage()
         {
             InitializeComponent();
 
-            BindingContext = viewModel = new ItemsViewModel();
+            BindingContext = _pageViewModel = new ItemsPageViewModel();
         }
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
@@ -24,7 +24,7 @@ namespace XamarinLab.Views
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(false, item)));
 
             // Manually deselect item
             ItemsListView.SelectedItem = null;
@@ -32,15 +32,15 @@ namespace XamarinLab.Views
 
         async void AddItem_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new NewItemPage());
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(true)));
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
 
-            if (viewModel.Items.Count == 0)
-                viewModel.LoadItemsCommand.Execute(null);
+            if (_pageViewModel.Items.Count == 0)
+                _pageViewModel.LoadItemsCommand.Execute(null);
         }
     }
 }

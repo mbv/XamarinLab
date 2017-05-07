@@ -10,21 +10,21 @@ using Xamarin.Forms;
 
 namespace XamarinLab.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class ItemsPositionViewModel : BaseViewModel<Position>
     {
-        public ObservableRangeCollection<Item> Items { get; set; }
+        public ObservableRangeCollection<Position> Positions { get; set; }
         public Command LoadItemsCommand { get; set; }
 
-        public ItemsViewModel()
+        public ItemsPositionViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableRangeCollection<Item>();
+            Title = "Positions";
+            Positions = new ObservableRangeCollection<Position>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", async (obj, item) =>
+            MessagingCenter.Subscribe<NewPositionPage, Position>(this, "AddPosition", async (obj, item) =>
             {
-                var _item = item as Item;
-                Items.Add(_item);
+                var _item = item as Position;
+                Positions.Add(_item);
                 await DataStore.AddItemAsync(_item);
             });
         }
@@ -38,9 +38,9 @@ namespace XamarinLab.ViewModels
 
             try
             {
-                Items.Clear();
+                Positions.Clear();
                 var items = await DataStore.GetItemsAsync(true);
-                Items.ReplaceRange(items);
+                Positions.ReplaceRange(items);
             }
             catch (Exception ex)
             {

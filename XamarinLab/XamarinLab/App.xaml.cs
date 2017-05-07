@@ -26,9 +26,9 @@ namespace XamarinLab
                         Title = "Browse",
                         Icon = Device.OnPlatform("tab_feed.png",null,null)
                     },
-                    new NavigationPage(new AboutPage())
+                    new NavigationPage(new ItemsPosition())
                     {
-                        Title = "About",
+                        Title = "Positions",
                         Icon = Device.OnPlatform("tab_about.png",null,null)
                     },
                 }
